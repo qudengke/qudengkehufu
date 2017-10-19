@@ -11,6 +11,10 @@ import java.util.Collection;
 @Entity
 @Table(name = "hufu_question")
 public class Question implements Serializable{
+
+    public Question() {
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column (name="id",length=10)
