@@ -68,7 +68,7 @@ public class Strategy  implements Serializable {
 
     //首咨
     @Column(name = "first_id")
-    private Integer firstId;
+    private Integer firstId=1;
     //    首咨探需    待议
     @Column(name = "first_ask_need")
     private String firstAskNeed;
@@ -117,7 +117,7 @@ public class Strategy  implements Serializable {
 
     //    7天内拨打策略
     @Column(name = "sec_id")
-    private Integer secId;
+    private Integer secId=2;
 
     //    7天内唤醒回忆，深入探需
     @Column(name = "sec_ask_need")
@@ -129,7 +129,7 @@ public class Strategy  implements Serializable {
 
     //    7天内主推班型
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "hufu_strategy_classsize",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="sec_id") },inverseJoinColumns = @JoinColumn(name = "classsize_id"))
+    @JoinTable(name = "hufu_strategy_classsize",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="sec_id")},inverseJoinColumns = @JoinColumn(name = "classsize_id"))
     private Set<ClassSize>  secMainClassSizes=new HashSet<ClassSize>();
 
     //    7天内截杀策略
@@ -146,7 +146,7 @@ public class Strategy  implements Serializable {
 
     //    库存跨期
     @Column(name = "final_id")
-    private Integer finalId;
+    private Integer finalId=3;
     //    库存跨期触发式开场
     @Column(name = "trigger_open")
     private String triggerOpen;
@@ -236,9 +236,6 @@ public class Strategy  implements Serializable {
         return firstId;
     }
 
-    public void setFirstId(Integer firstId) {
-        this.firstId = firstId;
-    }
 
     public String getFirstAskNeed() {
         return firstAskNeed;
@@ -346,9 +343,6 @@ public class Strategy  implements Serializable {
         return secId;
     }
 
-    public void setSecId(Integer secId) {
-        this.secId = secId;
-    }
 
     public String getSecAskNeed() {
         return secAskNeed;
@@ -380,9 +374,6 @@ public class Strategy  implements Serializable {
         return finalId;
     }
 
-    public void setFinalId(Integer finalId) {
-        this.finalId = finalId;
-    }
 
     public String getTriggerOpen() {
         return triggerOpen;
