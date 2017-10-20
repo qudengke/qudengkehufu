@@ -67,14 +67,12 @@ public class Strategy  implements Serializable {
 
 
     //首咨
-    @Column(name = "first_id")
-    private Integer firstId=1;
     //    首咨探需    待议
     @Column(name = "first_ask_need")
     private String firstAskNeed;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "hufu_strategy_need",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="first_id") },inverseJoinColumns = @JoinColumn(name = "need_id"))
+    @JoinTable(name = "hufu_strategy_need",joinColumns =@JoinColumn(name = "strategy_id",referencedColumnName ="id"),inverseJoinColumns = @JoinColumn(name = "need_id"))
     private Set<Need> needs=new HashSet<>();
 
 
@@ -96,7 +94,7 @@ public class Strategy  implements Serializable {
 
     //    首咨主推班型
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "hufu_strategy_classsize",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="first_id") },inverseJoinColumns = @JoinColumn(name = "classsize_id"))
+    @JoinTable(name = "hufu_strategy_classsize_first",joinColumns = @JoinColumn(name = "strategy_id",referencedColumnName ="id"),inverseJoinColumns = @JoinColumn(name = "classsize_id"))
     private Set<ClassSize>  firstMainClassSizes=new HashSet<ClassSize>();
 
     //    首咨截杀策略
@@ -105,7 +103,7 @@ public class Strategy  implements Serializable {
 
     //    首咨促销活动
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "hufu_strategy_promotion",joinColumns ={@JoinColumn(name ="strategy_id", referencedColumnName ="id"),@JoinColumn(name ="p_id", referencedColumnName ="first_id") },inverseJoinColumns = @JoinColumn(name = "promotion_id"))
+    @JoinTable(name = "hufu_strategy_promotion_first",joinColumns =@JoinColumn(name ="strategy_id", referencedColumnName ="id"),inverseJoinColumns = @JoinColumn(name = "promotion_id"))
     private Set<Promotion> firstPromotions=new HashSet<Promotion>();
 
     //    内部PK活动+激励活动
@@ -116,9 +114,6 @@ public class Strategy  implements Serializable {
 
 
     //    7天内拨打策略
-    @Column(name = "sec_id")
-    private Integer secId=2;
-
     //    7天内唤醒回忆，深入探需
     @Column(name = "sec_ask_need")
     private String secAskNeed;
@@ -129,7 +124,7 @@ public class Strategy  implements Serializable {
 
     //    7天内主推班型
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "hufu_strategy_classsize",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="sec_id")},inverseJoinColumns = @JoinColumn(name = "classsize_id"))
+    @JoinTable(name = "hufu_strategy_classsize_sec",joinColumns = @JoinColumn(name = "strategy_id",referencedColumnName ="id"),inverseJoinColumns = @JoinColumn(name = "classsize_id"))
     private Set<ClassSize>  secMainClassSizes=new HashSet<ClassSize>();
 
     //    7天内截杀策略
@@ -138,15 +133,13 @@ public class Strategy  implements Serializable {
 
     //    7天内促销活动
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "hufu_strategy_promotion",joinColumns ={@JoinColumn(name ="strategy_id", referencedColumnName ="id"),@JoinColumn(name ="p_id", referencedColumnName ="sec_id") },inverseJoinColumns = @JoinColumn(name = "promotion_id"))
+    @JoinTable(name = "hufu_strategy_promotion_sec",joinColumns =@JoinColumn(name ="strategy_id", referencedColumnName ="id"),inverseJoinColumns = @JoinColumn(name = "promotion_id"))
     private Set<Promotion> secPromotions=new HashSet<Promotion>();
 
 
 
 
     //    库存跨期
-    @Column(name = "final_id")
-    private Integer finalId=3;
     //    库存跨期触发式开场
     @Column(name = "trigger_open")
     private String triggerOpen;
@@ -157,7 +150,7 @@ public class Strategy  implements Serializable {
 
     //    库存跨期主推班型
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "hufu_strategy_classsize",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="final_id") },inverseJoinColumns = @JoinColumn(name = "classsize_id"))
+    @JoinTable(name = "hufu_strategy_classsize_final",joinColumns = @JoinColumn(name = "strategy_id",referencedColumnName ="id"),inverseJoinColumns = @JoinColumn(name = "classsize_id"))
     private Set<ClassSize>  finalMainClassSizes=new HashSet<ClassSize>();
 
     //    库存跨期终极截杀
@@ -230,10 +223,6 @@ public class Strategy  implements Serializable {
 
     public void setRegion(Integer region) {
         this.region = region;
-    }
-
-    public Integer getFirstId() {
-        return firstId;
     }
 
 
@@ -339,9 +328,6 @@ public class Strategy  implements Serializable {
         this.PK = PK;
     }
 
-    public Integer getSecId() {
-        return secId;
-    }
 
 
     public String getSecAskNeed() {
@@ -367,11 +353,6 @@ public class Strategy  implements Serializable {
 
     public void setSecSaleKill(String secSaleKill) {
         this.secSaleKill = secSaleKill;
-    }
-
-
-    public Integer getFinalId() {
-        return finalId;
     }
 
 
