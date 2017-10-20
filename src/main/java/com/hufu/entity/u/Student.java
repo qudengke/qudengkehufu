@@ -3,6 +3,9 @@ package com.hufu.entity.u;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ *学员实体
+ */
 @Entity
 @Table(name = "hufu_student")
 public class Student  implements Serializable {

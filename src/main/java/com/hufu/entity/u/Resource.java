@@ -3,6 +3,9 @@ package com.hufu.entity.u;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 资源
+ */
 @Entity
 @Table(name = "hufu_resource")
 public class Resource  implements Serializable {

@@ -7,6 +7,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+
+/**
+ * 角色
+ */
 @Entity
 @Table(name = "hufu_role")
 public class Role  implements Serializable {

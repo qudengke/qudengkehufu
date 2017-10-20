@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * 用户
+ */
 @Entity
 @Table(name = "hufu_user")
 public class User  implements Serializable {
