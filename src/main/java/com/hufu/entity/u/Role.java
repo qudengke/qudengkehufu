@@ -36,7 +36,7 @@ public class Role  implements Serializable {
     private Role role;
 
 //资源权限
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_role_resource",joinColumns = @JoinColumn(name = "role_id"),inverseJoinColumns = @JoinColumn(name = "resource_id"))
     Set<Resource> resources=new HashSet<Resource>();
 

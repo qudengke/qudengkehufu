@@ -31,7 +31,7 @@ public class User  implements Serializable {
 
     private String email;
 //    用户角色
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_user_role",joinColumns = @JoinColumn(name = "u_id"),inverseJoinColumns = @JoinColumn(name = "r_id"))
     Set<Role> roles=new HashSet<Role>();
 
