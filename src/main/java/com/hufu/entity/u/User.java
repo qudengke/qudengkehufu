@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 用户
@@ -31,24 +33,24 @@ public class User  implements Serializable {
 //    用户角色
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_user_role",joinColumns = @JoinColumn(name = "u_id"),inverseJoinColumns = @JoinColumn(name = "r_id"))
-    Collection<Role> roles=new ArrayList<Role>();
+    Set<Role> roles=new HashSet<Role>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "uid")
-    Collection<Strategy> strategies=new ArrayList<Strategy>();
+    Set<Strategy> strategies=new HashSet<Strategy>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "uid")
-    Collection<Need> needs=new ArrayList<Need>();
+    Set<Need> needs=new HashSet<Need>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "uid")
-    Collection<Record> records=new ArrayList<Record>();
+    Set<Record> records=new HashSet<Record>();
 
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "uid")
-    Collection<ViolationInfo> violationInfos=new ArrayList<ViolationInfo>();
+    Set<ViolationInfo> violationInfos=new HashSet<ViolationInfo>();
 
     public Integer getId() {
         return id;
@@ -90,11 +92,11 @@ public class User  implements Serializable {
         this.email = email;
     }
 
-    public Collection<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

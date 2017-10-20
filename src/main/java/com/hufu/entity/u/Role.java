@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 角色
@@ -26,7 +28,7 @@ public class Role  implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "rid")
-    Collection<Role> roles=new ArrayList<Role>();
+    Set<Role> roles=new HashSet<Role>();
 
     //所属角色
     @ManyToOne(cascade = CascadeType.ALL)
@@ -36,7 +38,7 @@ public class Role  implements Serializable {
 //资源权限
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_role_resource",joinColumns = @JoinColumn(name = "role_id"),inverseJoinColumns = @JoinColumn(name = "resource_id"))
-    Collection<Resource> resources=new ArrayList<Resource>();
+    Set<Resource> resources=new HashSet<Resource>();
 
 
     public Role getRole() {
@@ -71,11 +73,19 @@ public class Role  implements Serializable {
         this.name = name;
     }
 
-    public Collection<Resource> getResources() {
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Resource> getResources() {
         return resources;
     }
 
-    public void setResources(Collection<Resource> resources) {
+    public void setResources(Set<Resource> resources) {
         this.resources = resources;
     }
 
@@ -83,11 +93,5 @@ public class Role  implements Serializable {
         this.resources.add(resource);
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
-    }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
 }

@@ -9,9 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
+
 /**
  *策略实体
  */
@@ -21,7 +20,7 @@ public class Strategy  implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "strategy_id")
-    private Collection<Record> records=new ArrayList<Record>();
+    private Set<Record> records=new HashSet<Record>();
 
 
     @Id
@@ -58,9 +57,9 @@ public class Strategy  implements Serializable {
     @Column(name = "item")
     private Integer item;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_applydepart",joinColumns = @JoinColumn(name = "strategy_id"),inverseJoinColumns = @JoinColumn(name = "apply_dept_id"))
-    private Collection<Department> applydeparts=new ArrayList<Department>();
+    private Set<Department> applydeparts=new HashSet<Department>();
 
     //    适用地域：1、一线城市（北上广深武）2、全国APP 3、全国SEM 4、二三线城市（外地）
     @Column(name = "region")
@@ -74,40 +73,40 @@ public class Strategy  implements Serializable {
     @Column(name = "first_ask_need")
     private String firstAskNeed;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_need",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="first_id") },inverseJoinColumns = @JoinColumn(name = "need_id"))
-    private Collection<Need> needs=new ArrayList<Need>();
+    private Set<Need> needs=new HashSet<>();
 
 
 
     //    首咨主推专业
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_major",joinColumns = @JoinColumn(name = "strategy_id"),inverseJoinColumns = @JoinColumn(name = "major_id"))
-    private Collection<Major> firstMainMajors=new ArrayList<Major>();
+    private Set<Major> firstMainMajors=new HashSet<Major>();
 
     //    首咨主推院校
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_college",joinColumns = @JoinColumn(name = "strategy_id"),inverseJoinColumns = @JoinColumn(name = "college_id"))
-    private Collection<College>  firstMainColleges=new ArrayList<College>();
+    private Set<College>  firstMainColleges=new HashSet<College>();
 
     //    首咨主推项目
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_project",joinColumns = @JoinColumn(name = "strategy_id"),inverseJoinColumns = @JoinColumn(name = "project_id"))
-    private Collection<Project>  firstMainProjects=new ArrayList<Project>();
+    private Set<Project>  firstMainProjects=new HashSet<Project>();
 
     //    首咨主推班型
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_classsize",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="first_id") },inverseJoinColumns = @JoinColumn(name = "classsize_id"))
-    private Collection<ClassSize>  firstMainClassSizes=new ArrayList<ClassSize>();
+    private Set<ClassSize>  firstMainClassSizes=new HashSet<ClassSize>();
 
     //    首咨截杀策略
     @Column(name = "first_sale_kill")
     private String firstSaleKill;
 
     //    首咨促销活动
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_promotion",joinColumns ={@JoinColumn(name ="strategy_id", referencedColumnName ="id"),@JoinColumn(name ="p_id", referencedColumnName ="first_id") },inverseJoinColumns = @JoinColumn(name = "promotion_id"))
-    private Collection<Promotion> firstPromotions=new ArrayList<Promotion>();
+    private Set<Promotion> firstPromotions=new HashSet<Promotion>();
 
     //    内部PK活动+激励活动
     @Column(name = "pk")
@@ -129,18 +128,18 @@ public class Strategy  implements Serializable {
     private String solveFirstProbelm;
 
     //    7天内主推班型
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_classsize",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="sec_id") },inverseJoinColumns = @JoinColumn(name = "classsize_id"))
-    private Collection<ClassSize>  secMainClassSizes=new ArrayList<ClassSize>();
+    private Set<ClassSize>  secMainClassSizes=new HashSet<ClassSize>();
 
     //    7天内截杀策略
     @Column(name = "sec_sale_kill")
     private String secSaleKill;
 
     //    7天内促销活动
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_promotion",joinColumns ={@JoinColumn(name ="strategy_id", referencedColumnName ="id"),@JoinColumn(name ="p_id", referencedColumnName ="sec_id") },inverseJoinColumns = @JoinColumn(name = "promotion_id"))
-    private Collection<Promotion> secPromotions=new ArrayList<Promotion>();
+    private Set<Promotion> secPromotions=new HashSet<Promotion>();
 
 
 
@@ -157,9 +156,9 @@ public class Strategy  implements Serializable {
     private String assistTool;
 
     //    库存跨期主推班型
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_strategy_classsize",joinColumns = {@JoinColumn(name = "strategy_id",referencedColumnName ="id"),@JoinColumn(name ="c_id", referencedColumnName ="final_id") },inverseJoinColumns = @JoinColumn(name = "classsize_id"))
-    private Collection<ClassSize>  finalMainClassSizes=new ArrayList<ClassSize>();
+    private Set<ClassSize>  finalMainClassSizes=new HashSet<ClassSize>();
 
     //    库存跨期终极截杀
     @Column(name = "final_sale_kill")
@@ -223,13 +222,7 @@ public class Strategy  implements Serializable {
         this.item = item;
     }
 
-    public Collection<Department> getApplydeparts() {
-        return applydeparts;
-    }
 
-    public void setApplydeparts(Collection<Department> applydeparts) {
-        this.applydeparts = applydeparts;
-    }
 
     public Integer getRegion() {
         return region;
@@ -255,36 +248,81 @@ public class Strategy  implements Serializable {
         this.firstAskNeed = firstAskNeed;
     }
 
-    public Collection<Major> getFirstMainMajors() {
+
+    public Set<Department> getApplydeparts() {
+        return applydeparts;
+    }
+
+    public void setApplydeparts(Set<Department> applydeparts) {
+        this.applydeparts = applydeparts;
+    }
+
+    public Set<Need> getNeeds() {
+        return needs;
+    }
+
+    public void setNeeds(Set<Need> needs) {
+        this.needs = needs;
+    }
+
+    public Set<Major> getFirstMainMajors() {
         return firstMainMajors;
     }
 
-    public void setFirstMainMajors(Collection<Major> firstMainMajors) {
+    public void setFirstMainMajors(Set<Major> firstMainMajors) {
         this.firstMainMajors = firstMainMajors;
     }
 
-    public Collection<College> getFirstMainColleges() {
+    public Set<College> getFirstMainColleges() {
         return firstMainColleges;
     }
 
-    public void setFirstMainColleges(Collection<College> firstMainColleges) {
+    public void setFirstMainColleges(Set<College> firstMainColleges) {
         this.firstMainColleges = firstMainColleges;
     }
 
-    public Collection<Project> getFirstMainProjects() {
+    public Set<Project> getFirstMainProjects() {
         return firstMainProjects;
     }
 
-    public void setFirstMainProjects(Collection<Project> firstMainProjects) {
+    public void setFirstMainProjects(Set<Project> firstMainProjects) {
         this.firstMainProjects = firstMainProjects;
     }
 
-    public Collection<ClassSize> getFirstMainClassSizes() {
+    public Set<ClassSize> getFirstMainClassSizes() {
         return firstMainClassSizes;
     }
 
-    public void setFirstMainClassSizes(Collection<ClassSize> firstMainClassSizes) {
+    public void setFirstMainClassSizes(Set<ClassSize> firstMainClassSizes) {
         this.firstMainClassSizes = firstMainClassSizes;
+    }
+
+    public Set<Promotion> getFirstPromotions() {
+        return firstPromotions;
+    }
+
+    public void setFirstPromotions(Set<Promotion> firstPromotions) {
+        this.firstPromotions = firstPromotions;
+    }
+
+    public Set<ClassSize> getSecMainClassSizes() {
+        return secMainClassSizes;
+    }
+
+    public void setSecMainClassSizes(Set<ClassSize> secMainClassSizes) {
+        this.secMainClassSizes = secMainClassSizes;
+    }
+
+    public Set<Promotion> getSecPromotions() {
+        return secPromotions;
+    }
+
+    public void setSecPromotions(Set<Promotion> secPromotions) {
+        this.secPromotions = secPromotions;
+    }
+
+    public void setFinalMainClassSizes(Set<ClassSize> finalMainClassSizes) {
+        this.finalMainClassSizes = finalMainClassSizes;
     }
 
     public String getFirstSaleKill() {
@@ -295,13 +333,6 @@ public class Strategy  implements Serializable {
         this.firstSaleKill = firstSaleKill;
     }
 
-    public Collection<Promotion> getFirstPromotions() {
-        return firstPromotions;
-    }
-
-    public void setFirstPromotions(Collection<Promotion> firstPromotions) {
-        this.firstPromotions = firstPromotions;
-    }
 
     public String getPK() {
         return PK;
@@ -335,13 +366,6 @@ public class Strategy  implements Serializable {
         this.solveFirstProbelm = solveFirstProbelm;
     }
 
-    public Collection<ClassSize> getSecMainClassSizes() {
-        return secMainClassSizes;
-    }
-
-    public void setSecMainClassSizes(Collection<ClassSize> secMainClassSizes) {
-        this.secMainClassSizes = secMainClassSizes;
-    }
 
     public String getSecSaleKill() {
         return secSaleKill;
@@ -351,13 +375,6 @@ public class Strategy  implements Serializable {
         this.secSaleKill = secSaleKill;
     }
 
-    public Collection<Promotion> getSecPromotions() {
-        return secPromotions;
-    }
-
-    public void setSecPromotions(Collection<Promotion> secPromotions) {
-        this.secPromotions = secPromotions;
-    }
 
     public Integer getFinalId() {
         return finalId;
@@ -387,9 +404,6 @@ public class Strategy  implements Serializable {
         return finalMainClassSizes;
     }
 
-    public void setFinalMainClassSizes(Collection<ClassSize> finalMainClassSizes) {
-        this.finalMainClassSizes = finalMainClassSizes;
-    }
 
     public String getFinalSaleKill() {
         return finalSaleKill;
@@ -479,22 +493,13 @@ public class Strategy  implements Serializable {
         this.submitDate = submitDate;
     }
 
-    public Collection<Record> getRecords() {
+    public Set<Record> getRecords() {
         return records;
     }
 
-    public void setRecords(Collection<Record> records) {
+    public void setRecords(Set<Record> records) {
         this.records = records;
     }
-
-    public Collection<Need> getNeeds() {
-        return needs;
-    }
-
-    public void setNeeds(Collection<Need> needs) {
-        this.needs = needs;
-    }
-
 
     public void addNeeds(Need need){
         this.needs.add(need);

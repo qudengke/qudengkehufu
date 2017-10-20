@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 违规信息
@@ -38,9 +40,9 @@ public class ViolationInfo  implements Serializable {
     @JoinColumn(name = "uid")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "hufu_violation_type_info",joinColumns = @JoinColumn(name = "violation_info_id"),inverseJoinColumns = @JoinColumn(name = "violation_type_id"))
-    Collection<ViolationType> violationTypes=new ArrayList<ViolationType>();
+    Set<ViolationType> violationTypes=new HashSet<ViolationType>();
 
     //    是否可以回访申诉  0、是 1、否
     @Column (name="appeal",length=1)
@@ -106,11 +108,11 @@ public class ViolationInfo  implements Serializable {
         this.user = user;
     }
 
-    public Collection<ViolationType> getViolationTypes() {
+    public Set<ViolationType> getViolationTypes() {
         return violationTypes;
     }
 
-    public void setViolationTypes(Collection<ViolationType> violationTypes) {
+    public void setViolationTypes(Set<ViolationType> violationTypes) {
         this.violationTypes = violationTypes;
     }
 

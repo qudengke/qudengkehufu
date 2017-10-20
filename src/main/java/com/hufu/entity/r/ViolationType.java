@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 违规类型
@@ -33,6 +35,11 @@ public class ViolationType implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vid")
     private ViolationType vid;
+
+
+//    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//    @JoinTable(name = "hufu_violation_type_info",joinColumns = @JoinColumn(name = "violation_type_id"),inverseJoinColumns = @JoinColumn(name = "violation_info_id"))
+//    Set<ViolationInfo> violationInfos=new HashSet<ViolationInfo>();
 
     public Integer getId() {
         return id;
